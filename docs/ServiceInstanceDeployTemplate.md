@@ -23,7 +23,7 @@ deploySteps:
     type: ApiCall
     parameters:
       method: PUT
-      uri: {{serviceInfo.subservices.api.baseUri}}/service/hubs/{{instanceInfo.customs.accountId}}
+      uri: {{serviceInfo.subservices.api.baseUri}}/service/accounts/{{instanceInfo.customs.accountId}}
   DeployModule:
     type: DockerServiceCreate
     parameters:
