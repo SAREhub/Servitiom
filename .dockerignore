@@ -1,0 +1,11 @@
+.git/
+.gitignore
+.gitattributes
+.idea/
+tests/
+bin/
+api/
+phpunit.xml
+ruleset.xml
+Makefile
+README
