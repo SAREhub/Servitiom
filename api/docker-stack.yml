@@ -1,0 +1,85 @@
+version: "3.4"
+networks:
+  default:
+    external:
+      name: $NETWORK
+secrets:
+  servitiom_api_root_password:
+    external: true
+  servitiom_database_password:
+    external: true
+configs:
+  gateway_config:
+    file: ${API_GATEWAY_CONFIG_PATH}
+services:
+  gateway:
+    image: ${API_GATEWAY_IMAGE}
+    configs:
+    - source: gateway_config
+      target: ${API_GATEWAY_CONFIG_TARGET_PATH}
+      mode: 0444
+    ports:
+    - "${API_GATEWAY_PUBLISH_PORT}:80"
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: 2
+    deploy:
+      mode: replicated
+      placement:
+        constraints:
+          - ${API_GATEWAY_PLACEMENT_CONSTRAINT}
+      replicas: ${API_GATEWAY_REPLICAS}
+      restart_policy:
+        condition: ${DEFAULT_SERVICE_RESTART_CONDITION}
+        delay: ${DEFAULT_SERVICE_RESTART_DELAY}
+        max_attempts: ${DEFAULT_SERVICE_RESTART_MAX_ATTEMPTS}
+        window: ${DEFAULT_SERVICE_RESTART_WINDOW}
+      update_config:
+        parallelism: 1
+        delay: 5s
+        failure_action: pause
+        monitor: 20s
+        max_failure_ratio: 0.1
+      resources:
+        limits:
+          cpus: ${API_GATEWAY_LIMIT_CPU}
+          memory: ${API_GATEWAY_LIMIT_MEMORY}
+  app:
+    image: ${API_APP_IMAGE}
+    secrets:
+    - $API_ROOT_PASSWORD_SECRET
+    - $DATABASE_PASSWORD_SECRET
+    environment:
+    - API_ROOT_PASSWORD_SECRET=$API_ROOT_PASSWORD_SECRET
+    - DATABASE_HOST=$DATABASE_HOST
+    - DATABASE_PORT=$DATABASE_PORT
+    - DATABASE_USER=$DATABASE_USER
+    - DATABASE_PASSWORD_SECRET=$DATABASE_PASSWORD_SECRET
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: 2
+    deploy:
+      mode: replicated
+      placement:
+        constraints:
+          - ${API_APP_PLACEMENT_CONSTRAINT}
+      replicas: ${API_APP_REPLICAS}
+      restart_policy:
+        condition: ${DEFAULT_SERVICE_RESTART_CONDITION}
+        delay: ${DEFAULT_SERVICE_RESTART_DELAY}
+        max_attempts: ${DEFAULT_SERVICE_RESTART_MAX_ATTEMPTS}
+        window: ${DEFAULT_SERVICE_RESTART_WINDOW}
+      update_config:
+        parallelism: 1
+        delay: 5s
+        failure_action: pause
+        monitor: 20s
+        max_failure_ratio: 0.1
+      resources:
+        limits:
+          cpus: ${API_APP_LIMIT_CPU}
+          memory: ${API_APP_LIMIT_MEMORY}
