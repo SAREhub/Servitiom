@@ -5,6 +5,7 @@
 tests/
 bin/
 api/
+docs/
 phpunit.xml
 ruleset.xml
 Makefile
