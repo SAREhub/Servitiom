@@ -26,9 +26,7 @@ with some custom parameters.
 Features
 ========
 
-  * Powerful template system 
-    to describe many aspects of service deployment, 
-    upgrading and removing.
+  * Powerful template system to describe many aspects of service deployment, upgrading and removing.
   * Bulit-in deployment step strategies:
 
     * Docker Swarm Service

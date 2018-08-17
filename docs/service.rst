@@ -6,28 +6,44 @@ Service
 ServiceInfo
 ===========
 
-ServiceInfo defining some information about service.
+ServiceInfo defining information about service.
+Entity fields:
+
+  * id - unique service id in whole Servitiom
+  * name - human friendly name of service 
+  * description - some text to describe service purpose
+  * created_at - timestamp with date of service added to Servitiom
+
+To create service send POST request on ``/services``
 
 .. code-block:: yaml
 
-    apiVersion: v1
-    id: # unique service id
-    name: # human friendly name of service 
-    subservices:
-        <subserviceId>:
-            type: DockerService
-            parameters:
+  id: <string>
+  name: <string>,
+  description: <string>
 
 =========================
-Service Instance Template
+ServiceTask
 =========================
+
+ServiceTask defining how execute some work in service like deploy instance.
+Entity fields:
+
+  * id - unique id in service
+  * name - human friendly name of task
+  * description - some text to describe task purpose
+  * versions: 
+
+.. code-block:: yaml
+
+  id: <string>
+
 
 Deploying service instance can consist of many steps,
 with simple template you can describe what must be done to run instance of your service.
 For more info about templating check: https://twig.symfony.com/
 
 POST: https://<servitiom_api_uri>/v1/services
-  schemaVersion: 1.0
   id: "test"
   name: "test service",
   description: "simple service description bla bla bla" 
