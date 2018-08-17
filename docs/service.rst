@@ -3,7 +3,7 @@ Service
 #######
 
 ===========
-ServiceInfo
+Service
 ===========
 
 ServiceInfo defining information about service.
@@ -32,7 +32,11 @@ Entity fields:
   * id - unique id in service
   * name - human friendly name of task
   * description - some text to describe task purpose
-  * versions: 
+  * scope: instance | service 
+  * versions:
+    * default - special version to use when not explicity in request
+    * <version_id>
+      * template:  
 
 .. code-block:: yaml
 
