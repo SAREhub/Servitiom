@@ -1,12 +1,14 @@
-#######
-Service
-#######
+########
+Services
+########
 
-===========
-Service
-===========
+==========
+Definition
+==========
 
-ServiceInfo defining information about service.
+Service entity in Servitiom represents microservice application, who can be used by registered tenants.
+It can be deployed in many instances with unique custom properties like replicas, memory limit.
+
 Entity fields:
 
   * id - unique service id in whole Servitiom

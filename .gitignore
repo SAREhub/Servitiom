@@ -2,4 +2,4 @@
 .vscode/
 vendor/
 .gtm/
-_build/
+docs/_build/
