@@ -7,7 +7,6 @@ source ./bin/test/.env
 set +a
 
 echo $DATABASE_PASSWORD | docker secret create --label $TESTENV_LABEL $DATABASE_PASSWORD_SECRET -
-dockerutil::print_success "created secret ${DATABASE_PASSWORD_SECRET}"
 
 docker service create \
     --publish "$DATABASE_SERVICE_PUBLISH_PORT:27017" \
@@ -18,8 +17,6 @@ docker service create \
     --label $TESTENV_LABEL \
     --detach=true \
     $DATABASE_SERVICE_IMAGE
-
-dockerutil::print_success "created service: $MONGODB_SERVICE"
 
 docker service create \
     --name ${MONGODB_SERVICE_ADMIN} \
@@ -32,5 +29,3 @@ docker service create \
     --env ME_CONFIG_MONGODB_SERVER="$MONGODB_SERVICE" \
     --detach=true \
     mongo-express
-
-dockerutil::print_success "created service: $MONGODB_SERVICE_ADMIN"
