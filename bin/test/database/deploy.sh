@@ -6,16 +6,31 @@ source ./bin/.env
 source ./bin/test/.env
 set +a
 
-docker service create \
-    --name $DATABASE_SERVICE \
-    --network $NETWORK \
-    --publish "${DATABASE_PUBLISH_PORT}:3306" \
-    --secret $DATABASE_PASSWORD_SECRET \
-    --env "MYSQL_ROOT_PASSWORD_FILE=/run/secrets/${DATABASE_PASSWORD_SECRET}" \
-    --label $TESTENV_LABEL \
-    --detach \
-    --limit-cpu "2"  \
-    --limit-memory "512M"  \
-    $DATABASE_SERVICE_IMAGE &>/dev/null
+echo $DATABASE_PASSWORD | docker secret create --label $TESTENV_LABEL $DATABASE_PASSWORD_SECRET -
+dockerutil::print_success "created secret ${DATABASE_PASSWORD_SECRET}"
 
-dockerutil::print_success "created service: $DATABASE_SERVICE"
+docker service create \
+    --publish "$DATABASE_SERVICE_PUBLISH_PORT:27017" \
+    --name $DATABASE_SERVICE  \
+    --env MONGO_INITDB_ROOT_USERNAME=$DATABASE_USER \
+    --env MONGO_INITDB_ROOT_PASSWORD=$DATABASE_PASSWORD \
+    --network $NETWORK \
+    --label $TESTENV_LABEL \
+    --detach=true \
+    $DATABASE_SERVICE_IMAGE
+
+dockerutil::print_success "created service: $MONGODB_SERVICE"
+
+docker service create \
+    --name ${MONGODB_SERVICE_ADMIN} \
+    --network $NETWORK \
+    --label $TESTENV_LABEL \
+    --publish ${MONGODB_SERVICE_ADMIN_PUBLISH_PORT}:8081 \
+    --env ME_CONFIG_OPTIONS_EDITORTHEME="ambiance" \
+    --env ME_CONFIG_MONGODB_ADMINUSERNAME=$DATABASE_USER \
+    --env ME_CONFIG_MONGODB_ADMINPASSWORD=$DATABASE_PASSWORD \
+    --env ME_CONFIG_MONGODB_SERVER="$MONGODB_SERVICE" \
+    --detach=true \
+    mongo-express
+
+dockerutil::print_success "created service: $MONGODB_SERVICE_ADMIN"

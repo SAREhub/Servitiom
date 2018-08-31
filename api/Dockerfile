@@ -1,12 +1,26 @@
-FROM php:7.1-fpm-alpine
-ENV APP_LOGGING_STREAM="/tmp/stdout"
-RUN mkdir /app && chown www-data:www-data /app && \
-    mkfifo $APP_LOGGING_STREAM && chmod 777 $APP_LOGGING_STREAM  && \
-    docker-php-ext-install pdo pdo_mysql
+FROM composer:1.7.2 AS composer_install
+WORKDIR /app
+COPY composer.json .
+COPY src ./src
+COPY index.php .
 
-COPY --chown=www-data:www-data vendor /app/vendor
-COPY --chown=www-data:www-data src /app/src
-COPY --chown=www-data:www-data index.php /app
+RUN composer global require hirak/prestissimo && \
+    composer install --no-dev --optimize-autoloader --prefer-dist --no-suggest --ignore-platform-reqs
+
+FROM php:7.1-fpm-alpine
+
+ENV APP_LOGGING_STREAM="/tmp/stdout"
+RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS openssl-dev && \
+    pecl install mongodb-1.5.2 && \
+    docker-php-ext-enable mongodb && \
+    rm -rf /tmp/pear && \
+    apk del .phpize-deps && \
+    mkdir /app && chown www-data:www-data /app && \
+    mkfifo $APP_LOGGING_STREAM && chmod 777 $APP_LOGGING_STREAM
+
+WORKDIR /app
+COPY --chown=www-data:www-data --from=composer_install /app/ .
+
 USER www-data
 
 CMD ["sh", "-o", "pipefail", "-c", "php-fpm -D | tail -f $APP_LOGGING_STREAM"]
