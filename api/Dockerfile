@@ -1,8 +1,6 @@
 FROM composer:1.7.2 AS composer_install
 WORKDIR /app
 COPY composer.json .
-COPY src ./src
-COPY index.php .
 
 RUN composer global require hirak/prestissimo && \
     composer install --no-dev --optimize-autoloader --prefer-dist --no-suggest --ignore-platform-reqs
@@ -20,6 +18,8 @@ RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS openssl-dev && \
 
 WORKDIR /app
 COPY --chown=www-data:www-data --from=composer_install /app/ .
+COPY --chown=www-data:www-data src ./src
+COPY --chown=www-data:www-data index.php .
 
 USER www-data
 
