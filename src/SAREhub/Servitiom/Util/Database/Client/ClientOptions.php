@@ -64,7 +64,7 @@ class ClientOptions
         return $this;
     }
 
-    public function withUsername(string $username): ClientOptions
+    public function withUser(string $username): ClientOptions
     {
         $this->username = $username;
         return $this;

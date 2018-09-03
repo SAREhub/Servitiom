@@ -8,6 +8,8 @@ RUN composer global require hirak/prestissimo && \
 FROM php:7.1-fpm-alpine
 
 ENV APP_LOGGING_STREAM="/tmp/stdout"
+RUN apk add --no-cache libssl1.0
+
 RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS openssl-dev && \
     pecl install mongodb-1.5.2 && \
     docker-php-ext-enable mongodb && \

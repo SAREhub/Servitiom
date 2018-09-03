@@ -18,27 +18,21 @@
  *
  */
 
-namespace SAREhub\Servitiom\Api;
+namespace SAREhub\Servitiom\Util\Database;
 
-use DI\ContainerBuilder;
-use SAREhub\Microt\App\ContainerConfigurator;
-use SAREhub\Servitiom\Api\Routes\ServiceRoutesDefinitions;
-use SAREhub\Servitiom\Util\Database\DatabaseDefinitions;
-use SAREhub\Servitiom\Util\UtilDefinitions;
+use MongoDB\Client;
+use SAREhub\Servitiom\Util\Database\Client\ClientOptions;
+use SAREhub\Servitiom\Util\Database\Client\ClientProvider;
+use SAREhub\Servitiom\Util\Database\Client\EnvClientOptionsProvider;
+use function DI\factory;
 
-
-class ApiContainerConfigurator implements ContainerConfigurator
+class DatabaseDefinitions
 {
-    public function configure(ContainerBuilder $builder)
+    public static function get(): array
     {
-        $builder->addDefinitions(ApiDefinitions::get());
-        $this->configureRoutes($builder);
-    }
-
-    private function configureRoutes(ContainerBuilder $builder)
-    {
-        $builder->addDefinitions(ServiceRoutesDefinitions::get());
-        $builder->addDefinitions(UtilDefinitions::get());
-        $builder->addDefinitions(DatabaseDefinitions::get());
+        return [
+            ClientOptions::class => factory(EnvClientOptionsProvider::class),
+            Client::class => factory(ClientProvider::class)
+        ];
     }
 }

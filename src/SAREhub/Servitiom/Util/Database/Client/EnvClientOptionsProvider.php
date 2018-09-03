@@ -18,57 +18,50 @@
  *
  */
 
-namespace SAREhub\Servitiom\Tests\Database;
+namespace SAREhub\Servitiom\Util\Database\Client;
 
-use MongoDB\Client;
 use SAREhub\Commons\Misc\EnvironmentHelper;
-use SAREhub\Servitiom\Util\Database\Client\ClientFactory;
-use SAREhub\Servitiom\Util\Database\Client\ClientOptions;
+use SAREhub\Commons\Misc\InvokableProvider;
+use SAREhub\Commons\Secret\SecretValueNotFoundException;
+use SAREhub\Commons\Secret\SecretValueProvider;
 
-class DatabaseHelper
+class EnvClientOptionsProvider extends InvokableProvider
 {
     const ENV_HOST = "DATABASE_HOST";
     const ENV_PORT = "DATABASE_PORT";
 
-    const TEST_USER = "mongo_admin";
-    const TEST_PASSWORD = "test";
+    const ENV_USER = "DATABASE_USER";
+    const ENV_PASSWORD_SECRET = "DATABASE_PASSWORD_SECRET";
 
     /**
-     * @var string
+     * @var SecretValueProvider
      */
-    private $databasePrefix;
+    private $secretValueProvider;
 
-    /**
-     * @var Client
-     */
-    private $client;
-
-    /**
-     * @param string $databasePrefix
-     */
-    public function __construct(string $databasePrefix)
+    public function __construct(SecretValueProvider $secretValueProvider)
     {
-        $this->databasePrefix = $databasePrefix;
-        $this->client = self::createClient(self::getTestClientOptions());
+        $this->secretValueProvider = $secretValueProvider;
     }
 
-    public static function createClient(ClientOptions $options): Client
-    {
-        $factory = new ClientFactory();
-        return $factory->create($options);
-    }
-
-    public static function getTestClientOptions(): ClientOptions
+    /**
+     * @return ClientOptions
+     * @throws SecretValueNotFoundException
+     */
+    public function get()
     {
         return ClientOptions::newInstance()
             ->withHost(EnvironmentHelper::getRequiredVar(self::ENV_HOST))
             ->withPort(EnvironmentHelper::getRequiredVar(self::ENV_PORT))
-            ->withUser(self::TEST_USER)
-            ->withPassword(self::TEST_PASSWORD);
+            ->withUser(EnvironmentHelper::getRequiredVar(self::ENV_USER))
+            ->withPassword($this->getPasswordFromEnv());
     }
 
-    public function getClient(): Client
+    /**
+     * @return string
+     * @throws SecretValueNotFoundException
+     */
+    private function getPasswordFromEnv(): string
     {
-        return $this->client;
+        return $this->secretValueProvider->get(EnvironmentHelper::getRequiredVar(self::ENV_PASSWORD_SECRET));
     }
 }

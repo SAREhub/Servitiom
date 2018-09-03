@@ -18,27 +18,18 @@
  *
  */
 
-namespace SAREhub\Servitiom\Api;
+namespace SAREhub\Servitiom\Util;
 
-use DI\ContainerBuilder;
-use SAREhub\Microt\App\ContainerConfigurator;
-use SAREhub\Servitiom\Api\Routes\ServiceRoutesDefinitions;
-use SAREhub\Servitiom\Util\Database\DatabaseDefinitions;
-use SAREhub\Servitiom\Util\UtilDefinitions;
+use SAREhub\Commons\Secret\SecretValueProvider;
+use SAREhub\DockerUtil\Secret\DockerSecretValueProvider;
+use function DI\autowire;
 
-
-class ApiContainerConfigurator implements ContainerConfigurator
+class UtilDefinitions
 {
-    public function configure(ContainerBuilder $builder)
+    public static function get(): array
     {
-        $builder->addDefinitions(ApiDefinitions::get());
-        $this->configureRoutes($builder);
-    }
-
-    private function configureRoutes(ContainerBuilder $builder)
-    {
-        $builder->addDefinitions(ServiceRoutesDefinitions::get());
-        $builder->addDefinitions(UtilDefinitions::get());
-        $builder->addDefinitions(DatabaseDefinitions::get());
+        return [
+            SecretValueProvider::class => autowire(DockerSecretValueProvider::class)
+        ];
     }
 }
