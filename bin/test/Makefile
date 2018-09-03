@@ -7,7 +7,7 @@ test_init_base:
 	bash ${BIN_SCRIPTS_PATH}/init.sh
 
 test_init_database:
-	bash ${BIN_SCRIPTS_PATH}/database/init.sh
+	bash ${BIN_SCRIPTS_PATH}/database/deploy.sh
 
 test_clean:
 	bash ${BIN_SCRIPTS_PATH}/clean.sh

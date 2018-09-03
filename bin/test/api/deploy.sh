@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e -u
 source $DOCKERUTIL_PATH
 set -a
