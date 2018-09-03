@@ -10,3 +10,4 @@ phpunit.xml
 ruleset.xml
 Makefile
 README
+/vendor/
