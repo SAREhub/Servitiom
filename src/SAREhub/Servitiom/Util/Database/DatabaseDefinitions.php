@@ -21,7 +21,7 @@
 namespace SAREhub\Servitiom\Util\Database;
 
 use MongoDB\Client;
-use SAREhub\Servitiom\Util\Database\Client\ClientOptions;
+use SAREhub\MicroODM\Client\ClientOptions;
 use SAREhub\Servitiom\Util\Database\Client\ClientProvider;
 use SAREhub\Servitiom\Util\Database\Client\EnvClientOptionsProvider;
 use function DI\factory;

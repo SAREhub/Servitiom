@@ -22,6 +22,8 @@ namespace SAREhub\Servitiom\Util\Database\Client;
 
 use MongoDB\Client;
 use SAREhub\Commons\Misc\InvokableProvider;
+use SAREhub\MicroODM\Client\ClientFactory;
+use SAREhub\MicroODM\Client\ClientOptions;
 
 class ClientProvider extends InvokableProvider
 {

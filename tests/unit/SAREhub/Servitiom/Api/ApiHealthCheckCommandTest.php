@@ -23,8 +23,8 @@ namespace SAREhub\Servitiom\Api;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\Mock;
 use PHPUnit\Framework\TestCase;
+use SAREhub\MicroODM\Client\DatabasePingChecker;
 use SAREhub\Microt\HealthCheck\HealthCheckResult;
-use SAREhub\Servitiom\Util\Database\Client\DatabasePingChecker;
 
 class ApiHealthCheckCommandTest extends TestCase
 {

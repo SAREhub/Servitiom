@@ -8,7 +8,7 @@
   ],
   "minimum-stability": "stable",
   "type": "project",
-  "readme": "./readme",
+  "readme": "./README.md",
   "license": "Apache-2.0",
   "authors": [
     {
@@ -26,10 +26,11 @@
     "sarehub/microt": "0.8.*",
     "sarehub/commons": "0.7.*",
     "sarehub/dockerutil": "0.3.*",
+    "sarehub/microodm": "dev-master",
     "respect/validation": "^1.1",
     "tuupola/slim-basic-auth": "^2.2",
-    "php-di/php-di": "^6.0",
-    "mongodb/mongodb": "^1.4"
+    "php-di/php-di": "^6.0"
+
   },
   "autoload": {
     "psr-4": {

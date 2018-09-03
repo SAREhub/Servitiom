@@ -20,9 +20,9 @@
 
 namespace SAREhub\Servitiom\Api;
 
+use SAREhub\MicroODM\Client\DatabasePingChecker;
 use SAREhub\Microt\HealthCheck\HealthCheckCommand;
 use SAREhub\Microt\HealthCheck\HealthCheckResult;
-use SAREhub\Servitiom\Util\Database\Client\DatabasePingChecker;
 
 class ApiHealthCheckCommand implements HealthCheckCommand
 {

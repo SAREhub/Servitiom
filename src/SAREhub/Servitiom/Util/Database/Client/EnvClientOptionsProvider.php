@@ -24,6 +24,7 @@ use SAREhub\Commons\Misc\EnvironmentHelper;
 use SAREhub\Commons\Misc\InvokableProvider;
 use SAREhub\Commons\Secret\SecretValueNotFoundException;
 use SAREhub\Commons\Secret\SecretValueProvider;
+use SAREhub\MicroODM\Client\ClientOptions;
 
 class EnvClientOptionsProvider extends InvokableProvider
 {
