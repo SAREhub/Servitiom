@@ -2,27 +2,40 @@
 Services
 ########
 
-==========
-Definition
-==========
+=======
+Service
+=======
 
 Service entity in Servitiom represents microservice application, who can be used by registered tenants.
-It can be deployed in many instances with unique custom properties like replicas, memory limit.
+It can be deployed in many instances with unique custom properties like replicas count, resources limits.
 
-Entity fields:
+================
+Service Instance
+================
 
-  * id - unique service id in whole Servitiom
-  * name - human friendly name of service 
-  * description - some text to describe service purpose
-  * created_at - timestamp with date of service added to Servitiom
+Service instance in Servitiom represents unique deployed service in specified version and assigned to tenant. 
+One tenant can have only one instance of service.
 
-To create service send POST request on ``/services``
+==================
+Service Versioning
+==================
+
+Service can have multiply registered versions.
+Each version contains jobs templates for instance and service contexts.
+Template Schema: 
 
 .. code-block:: yaml
 
-  id: <string>
-  name: <string>,
-  description: <string>
+    schemaVersion: "0.1"
+    serviceVersion: "1.0.0"
+    jobs:
+        instance: 
+            deploy:
+                
+
+
+
+
 
 =========================
 ServiceTask

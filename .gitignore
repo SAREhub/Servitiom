@@ -4,3 +4,4 @@ vendor/
 .gtm/
 docs/_build/
 /composer.lock
+_build/
