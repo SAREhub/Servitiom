@@ -15,7 +15,6 @@ html_context = {
  ]
 }
 
-latex_logo = 'assets/img/logo.png'
 latex_documents = [
   (master_doc, 'index.tex', u'Servitiom',
    u'SARE SA', 'manual', True),
