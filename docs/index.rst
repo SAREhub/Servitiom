@@ -1,15 +1,15 @@
-.. toctree::
-   :maxdepth: 2
-   :caption: Table of Contents
-   :name: mastertoc
-   services
-   tenants
-   variables
-
 #########
 Servitiom
 #########
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Table of Contents
+   :name: mastertoc
+
+   services
+   tenants
+   variables
 
 
 Servitiom makes managing of microservices instances simpler.
