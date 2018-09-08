@@ -2,10 +2,6 @@
 Tenants
 #######
 
-==========
-Definition
-==========
-
 Tenant in Servitiom represents client organization, who using subset of registered services. Tenant simply compose services for unique business purpose.
 Service instance can be attached to only one tenant and when tenant is removed with all attached resources.
 
