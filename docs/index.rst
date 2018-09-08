@@ -2,7 +2,7 @@
 Servitiom
 #########
 
-Servitiom makes managing of microservices instances simpler.
+**Servitiom** makes managing of microservices instances simpler.
 
 ==========
 Background
@@ -13,7 +13,7 @@ with different parameters(like memory limit, replicas) for single customer or gr
 additionally, deployment can consist of many unique steps and each of them may need to change some parameters.
 
 What is needed is an appropriate tool that will ensure ease of deployment and scaling single service instance.
-Servitiom is just such a tool, 
+**Servitiom** is just such a tool,
 thanks to template system you can describe steps of service instance deployment
 with some custom parameters.
 

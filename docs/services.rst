@@ -2,7 +2,7 @@
 Services
 ########
 
-Service entity in Servitiom represents microservice application, who can be used by registered tenants.
+Service entity in **Servitiom** represents microservice application, who can be used by registered tenants.
 It can be deployed in many instances with unique custom properties like replicas count, resources limits.
 
 ================
