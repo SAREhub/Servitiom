@@ -2,20 +2,15 @@
 set -e -u
 source $DOCKERUTIL_PATH
 set -a
-source ./bin/.env
 source ./bin/test/.env
 set +a
 
 docker service create \
-    --name ${MONGODB_SERVICE_ADMIN} \
-    --network $NETWORK \
-    --label $TESTENV_LABEL \
-    --publish ${DATABASE_ADMIN_PUBLISH_PORT}:8081 \
-    --env ME_CONFIG_OPTIONS_EDITORTHEME="ambiance" \
-    --env ME_CONFIG_MONGODB_ADMINUSERNAME=$DATABASE_USER \
-    --env ME_CONFIG_MONGODB_ADMINPASSWORD=$TEST_PASSWORD \
-    --env ME_CONFIG_MONGODB_SERVER="$MONGODB_SERVICE" \
+    --name ${DATABASE_SERVICE_ADMIN} \
+    --network ${NETWORK} \
+    --label "${TESTENV_LABEL}" \
+    --publish ${DATABASE_ADMIN_PUBLISH_PORT}:${DATABASE_ADMIN_PORT} \
     --detach=true \
-    mongo-express &>/dev/null
+    ${DATABASE_ADMIN_IMAGE} &>/dev/null
 
-dockerutil::print_success "created service: $DATABASE_SERVICE"
+dockerutil::print_success "created service: $DATABASE_SERVICE_ADMIN"

@@ -2,7 +2,7 @@
 set -e -u
 source $DOCKERUTIL_PATH
 set -a
-source ./bin/.env
+
 source ./bin/test/.env
 set +a
 
