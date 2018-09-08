@@ -2,16 +2,6 @@
 Servitiom
 #########
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Table of Contents
-   :name: mastertoc
-
-   services
-   tenants
-   variables
-
-
 Servitiom makes managing of microservices instances simpler.
 
 ==========
@@ -41,3 +31,15 @@ Features
     
   * Service deployment versioning and upgrading based on templates.
   * REST API
+
+========
+Contents
+========
+
+.. toctree::
+   :maxdepth: 2
+   :name: mastertoc
+
+   services
+   tenants
+   variables
