@@ -1,7 +1,3 @@
-#########
-Servitiom
-#########
-
 .. toctree::
    :maxdepth: 2
    :caption: Table of Contents
@@ -9,6 +5,12 @@ Servitiom
    services
    tenants
    variables
+
+#########
+Servitiom
+#########
+
+
 
 Servitiom makes managing of microservices instances simpler.
 
