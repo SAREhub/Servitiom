@@ -17,7 +17,7 @@ do
     create_secret $secret $TEST_PASSWORD
 done
 
-function create_network() {
+function create_test_network() {
     docker network create --label $TESTENV_LABEL --driver overlay $NETWORK --subnet $NETWORK_SUBNET &>/dev/null
 }
 
