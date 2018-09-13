@@ -16,6 +16,12 @@ test_init_base:
 test_init_database:
 	bash ${BIN_SCRIPTS_PATH}/database/deploy.sh
 
+## Creates test database admin service
+test_init_database_admin:
+	bash ${BIN_SCRIPTS_PATH}/database/deploy_admin.sh
+
+
+
 ## Cleans test env
 test_clean:
 	bash ${BIN_SCRIPTS_PATH}/clean.sh

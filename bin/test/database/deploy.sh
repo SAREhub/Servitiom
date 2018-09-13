@@ -8,6 +8,7 @@ set +a
 docker service create \
     --name $DATABASE_SERVICE  \
     --network $NETWORK \
+    --secret $DATABASE_PASSWORD_SECRET \
     --publish "${DATABASE_PUBLISH_PORT}:${DATABASE_PORT}" \
     --env MYSQL_ROOT_PASSWORD_FILE="/run/secrets/${DATABASE_PASSWORD_SECRET}" \
     --label "${TESTENV_LABEL}" \
