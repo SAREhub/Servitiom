@@ -7,12 +7,10 @@ set +a
 
 docker service create \
     --name ${DATABASE_SERVICE_ADMIN} \
-    --network ${NETWORK} \
-    --label "${TESTENV_LABEL}" \
+    ${BASIC_DOCKER_SERVICE_CREATE_ARGS[@]} \
     --publish ${DATABASE_ADMIN_PUBLISH_PORT}:${DATABASE_ADMIN_PORT} \
     --env PMA_HOST="${DATABASE_HOST}" \
     --env PMA_PORT="${DATABASE_PORT}" \
-    --detach=true \
     ${DATABASE_ADMIN_IMAGE} &>/dev/null
 
 dockerutil::print_success "created service: $DATABASE_SERVICE_ADMIN"

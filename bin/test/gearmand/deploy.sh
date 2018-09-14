@@ -7,10 +7,7 @@ set +a
 
 docker service create \
     --name "${GEARMAND_SERVICE}"  \
-    --network "${NETWORK}" \
-    --label "${TESTENV_LABEL}" \
-    --detach=true \
-    --with-registry-auth \
+    ${BASIC_DOCKER_SERVICE_CREATE_ARGS[@]} \
     --env QUEUE_TYPE="${GEARMAND_QUEUE_TYPE}" \
     "${GEARMAND_SERVICE_IMAGE}" \
     &>/dev/null
