@@ -20,7 +20,9 @@ test_init_database:
 test_init_database_admin:
 	bash ${BIN_SCRIPTS_PATH}/database/deploy_admin.sh
 
-
+## Creates test gearmand service
+test_init_gearmand:
+	bash ${BIN_SCRIPTS_PATH}/gearmand/deploy.sh
 
 ## Cleans test env
 test_clean:

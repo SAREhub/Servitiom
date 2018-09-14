@@ -18,7 +18,7 @@
  *
  */
 
-namespace SAREhub\Servitiom\Util\Database\Client;
+namespace SAREhub\Servitiom\Util\Database\Connection;
 
 use SAREhub\Commons\Misc\EnvironmentHelper;
 use SAREhub\Commons\Misc\InvokableProvider;
@@ -26,7 +26,7 @@ use SAREhub\Commons\Secret\SecretValueNotFoundException;
 use SAREhub\Commons\Secret\SecretValueProvider;
 use SAREhub\MicroODM\Client\ClientOptions;
 
-class EnvClientOptionsProvider extends InvokableProvider
+class EnvConnectionOptionsProvider extends InvokableProvider
 {
     const ENV_HOST = "DATABASE_HOST";
     const ENV_PORT = "DATABASE_PORT";

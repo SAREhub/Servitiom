@@ -18,14 +18,14 @@
  *
  */
 
-namespace SAREhub\Servitiom\Util\Database\Client;
+namespace SAREhub\Servitiom\Util\Database\Connection;
 
 use MongoDB\Client;
 use SAREhub\Commons\Misc\InvokableProvider;
 use SAREhub\MicroODM\Client\ClientFactory;
 use SAREhub\MicroODM\Client\ClientOptions;
 
-class ClientProvider extends InvokableProvider
+class ConnectionProvider extends InvokableProvider
 {
     /**
      * @var ClientOptions
