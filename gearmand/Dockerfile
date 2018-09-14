@@ -20,6 +20,7 @@ RUN set -x \
 		libevent-dev \
 		util-linux-dev \
 		libressl-dev \
+		hiredis-dev \
 		mariadb-dev \
 	&& wget -O gearmand.tar.gz "https://github.com/gearman/gearmand/releases/download/$GEARMAND_VERSION/gearmand-$GEARMAND_VERSION.tar.gz" \
 	&& echo "$GEARMAND_SHA1  gearmand.tar.gz" | sha1sum -c - \
@@ -39,6 +40,7 @@ RUN set -x \
 		--disable-libdrizzle \
 		--disable-libmemcached \
 		--enable-ssl \
+		--enable-hiredis \
 		--enable-jobserver=no \
 	&& make \
 	&& make install \
@@ -55,11 +57,14 @@ RUN set -x \
 	&& apk del .build-deps \
 	&& /usr/local/sbin/gearmand --version
 
+RUN apk add --no-cache bash
 
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN ln -s usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
-ENTRYPOINT ["docker-entrypoint.sh"]
 
+
+ENTRYPOINT ["docker-entrypoint.sh"]
 USER gearman
+
 EXPOSE 4730
 CMD ["gearmand"]
