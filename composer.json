@@ -6,7 +6,8 @@
     "api",
     "microservice"
   ],
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "type": "project",
   "readme": "./README.md",
   "license": "Apache-2.0",
@@ -26,7 +27,8 @@
     "sarehub/microt": "0.8.*",
     "sarehub/commons": "0.7.*",
     "sarehub/dockerutil": "0.3.*",
-    "sarehub/microorm": "dev-master",
+    "sarehub/microorm": "dev-version_0.2",
+    "doctrine/orm": "2.6.*",
     "respect/validation": "^1.1",
     "tuupola/slim-basic-auth": "^2.2",
     "php-di/php-di": "^6.0"
