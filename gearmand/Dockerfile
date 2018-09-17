@@ -1,4 +1,4 @@
-FROM alpine:3.7
+FROM alpine:3.8
 
 ENV GEARMAND_VERSION 1.1.18
 ENV GEARMAND_SHA1 eb7f1d806635cba309c40460c3ca5f2ff76d6519
@@ -19,9 +19,10 @@ RUN set -x \
 		boost-dev \
 		libevent-dev \
 		util-linux-dev \
-		libressl-dev \
 		hiredis-dev \
+		libressl-dev \
 		mariadb-dev \
+		libmemcached-dev \
 	&& wget -O gearmand.tar.gz "https://github.com/gearman/gearmand/releases/download/$GEARMAND_VERSION/gearmand-$GEARMAND_VERSION.tar.gz" \
 	&& echo "$GEARMAND_SHA1  gearmand.tar.gz" | sha1sum -c - \
 	&& mkdir -p /usr/src/gearmand \
@@ -38,7 +39,6 @@ RUN set -x \
 		--disable-libpq \
 		--disable-libtokyocabinet \
 		--disable-libdrizzle \
-		--disable-libmemcached \
 		--enable-ssl \
 		--enable-hiredis \
 		--enable-jobserver=no \
@@ -57,14 +57,12 @@ RUN set -x \
 	&& apk del .build-deps \
 	&& /usr/local/sbin/gearmand --version
 
-RUN apk add --no-cache bash
-
 COPY docker-entrypoint.sh /usr/local/bin/
-RUN ln -s usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
-
-
+RUN apk add --no-cache bash \
+    && touch /etc/gearmand.conf && chown gearman:gearman /etc/gearmand.conf \
+    && ln -s usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
 ENTRYPOINT ["docker-entrypoint.sh"]
-USER gearman
 
+USER gearman
 EXPOSE 4730
 CMD ["gearmand"]
