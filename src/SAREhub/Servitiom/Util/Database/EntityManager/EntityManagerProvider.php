@@ -18,10 +18,11 @@
  *
  */
 
-namespace SAREhub\Servitiom\Util\Database;
+namespace SAREhub\Servitiom\Util\Database\EntityManager;
 
 use Doctrine\Common\Cache\VoidCache;
 use Doctrine\ORM\Configuration;
+use Doctrine\ORM\EntityManager;
 use SAREhub\Commons\Misc\InvokableProvider;
 
 class EntityManagerProvider extends InvokableProvider

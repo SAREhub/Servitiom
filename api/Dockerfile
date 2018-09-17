@@ -10,6 +10,8 @@ RUN docker-php-ext-install pdo pdo_mysql
 RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS && \
     pecl install gearman-1.1.2 && \
     docker-php-ext-enable gearman && \
+    pecl install apcu-5.1.12  && \
+    docker-php-ext-enable apcu && \
     rm -rf /tmp/pear && \
     apk del .phpize-deps && \
 RUN mkdir /app && chown www-data:www-data /app && \

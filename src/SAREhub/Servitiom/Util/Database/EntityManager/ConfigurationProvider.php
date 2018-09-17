@@ -18,13 +18,13 @@
  *
  */
 
-namespace SAREhub\Servitiom\Util\Database;
+namespace SAREhub\Servitiom\Util\Database\EntityManager;
 
 use Doctrine\Common\Cache\Cache;
 use Doctrine\ORM\Configuration;
 use SAREhub\Commons\Misc\InvokableProvider;
 
-class EntityManagerConfigurationProvider extends InvokableProvider
+class ConfigurationProvider extends InvokableProvider
 {
 
     /**
@@ -50,7 +50,8 @@ class EntityManagerConfigurationProvider extends InvokableProvider
 
         $config->setProxyDir('/path/to/myproject/lib/MyProject/Proxies');
         $config->setProxyNamespace('MyProject\Proxies');
-        $config->setAutoGenerateProxyClasses(false);
+        $config->setAutoGenerateProxyClasses(\ProxyManager\Configuration::DEFAULT_PROXY_NAMESPACE);
+
         return $config;
     }
 

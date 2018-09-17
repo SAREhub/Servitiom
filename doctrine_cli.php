@@ -18,7 +18,6 @@
  *
  */
 
-use Doctrine\Common\Cache\VoidCache;
 use Doctrine\DBAL\Platforms\MySQL57Platform;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
@@ -29,7 +28,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 ErrorHandlerHelper::enableErrorReporting(E_ALL);
 
-$cache = new VoidCache();
+$cache = new \Doctrine\Common\Cache\ApcuCache();
 $config = new Configuration;
 $config->setMetadataCacheImpl($cache);
 $driverImpl = $config->newDefaultAnnotationDriver("src/SAREhub/Servitiom/Entity");

@@ -25,27 +25,39 @@ class ProxyConfiguration
     /**
      * @var string
      */
-    private $dir;
-
-    /**
-     * @var string
-     */
     private $namespace;
 
     /**
      * @var bool
      */
-    private $autoGenerateClasses;
+    private $generateOnFly;
 
-    public function __construct(string $dir, string $namespace, bool $autoGenerateClasses)
+    /**
+     * @var string
+     */
+    private $dir;
+
+    public function __construct(string $namespace, bool $generateOnFly = true, string $dir = '')
     {
-        $this->dir = $dir;
         $this->namespace = $namespace;
-        $this->autoGenerateClasses = $autoGenerateClasses;
+        $this->generateOnFly = $generateOnFly;
+        $this->dir = $dir;
     }
 
-    public static function createDev(): self
+    public function getNamespace(): string
     {
-        return new self('');
+        return $this->namespace;
     }
+
+    public function isGenerateOnFly(): bool
+    {
+        return $this->generateOnFly;
+    }
+
+    public function getDir(): string
+    {
+        return $this->dir;
+    }
+
+
 }
