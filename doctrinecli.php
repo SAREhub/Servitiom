@@ -49,5 +49,4 @@ $helperSet = ConsoleRunner::createHelperSet($entityManager);
 
 $cli = ConsoleRunner::createApplication($helperSet);
 
-
 $cli->run();

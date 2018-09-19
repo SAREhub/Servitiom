@@ -22,17 +22,16 @@ namespace SAREhub\Servitiom\Util\Database;
 
 use MongoDB\Client;
 use SAREhub\MicroODM\Client\ClientOptions;
+use SAREhub\MicroORM\Connection\ConnectionOptions;
 use SAREhub\Servitiom\Util\Database\Connection\ConnectionProvider;
 use SAREhub\Servitiom\Util\Database\Connection\EnvConnectionOptionsProvider;
-use function DI\factory;
 
 class DatabaseDefinitions
 {
     public static function get(): array
     {
         return [
-            ClientOptions::class => factory(EnvConnectionOptionsProvider::class),
-            Client::class => factory(ConnectionProvider::class)
+            ConnectionOptions::newInstance()
         ];
     }
 }
