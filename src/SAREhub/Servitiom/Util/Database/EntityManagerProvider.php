@@ -18,9 +18,9 @@
  *
  */
 
-namespace SAREhub\Servitiom\Util\Database\EntityManager;
+namespace SAREhub\Servitiom\Util\Database;
 
-use Doctrine\Common\Cache\VoidCache;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 use SAREhub\Commons\Misc\InvokableProvider;
@@ -28,27 +28,24 @@ use SAREhub\Commons\Misc\InvokableProvider;
 class EntityManagerProvider extends InvokableProvider
 {
 
+    /**
+     * @var Connection
+     */
+    private $connection;
+
+    /**
+     * @var Configuration
+     */
+    private $configuration;
+
+    public function __construct(Connection $connection, Configuration $configuration)
+    {
+        $this->connection = $connection;
+        $this->configuration = $configuration;
+    }
+
     public function get()
     {
-        $config = new Configuration;
-        $config->setMetadataCacheImpl(new VoidCache());
-        $driverImpl = $config->newDefaultAnnotationDriver('/path/to/lib/MyProject/Entities');
-        $config->setMetadataDriverImpl($driverImpl);
-        $config->setQueryCacheImpl($cache);
-        $config->setProxyDir('/path/to/myproject/lib/MyProject/Proxies');
-        $config->setProxyNamespace('MyProject\Proxies');
-
-        if ($applicationMode == "development") {
-            $config->setAutoGenerateProxyClasses(true);
-        } else {
-            $config->setAutoGenerateProxyClasses(false);
-        }
-
-        $connectionOptions = array(
-            'driver' => 'pdo_sqlite',
-            'path' => 'database.sqlite'
-        );
-
-        $em = EntityManager::create($connectionOptions, $config);
+        return EntityManager::create($this->connection, $this->configuration);
     }
 }

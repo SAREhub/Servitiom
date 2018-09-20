@@ -18,7 +18,7 @@
  *
  */
 
-namespace SAREhub\Servitiom\Util\Database\EntityManager;
+namespace SAREhub\Servitiom\Util\Database;
 
 class ProxyConfiguration
 {
@@ -37,7 +37,7 @@ class ProxyConfiguration
      */
     private $dir;
 
-    public function __construct(string $namespace, bool $generateOnFly = true, string $dir = '')
+    public function __construct(string $namespace, bool $generateOnFly = true, string $dir = "Proxies")
     {
         $this->namespace = $namespace;
         $this->generateOnFly = $generateOnFly;

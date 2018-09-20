@@ -53,7 +53,7 @@ services:
           cpus: ${API_GATEWAY_LIMIT_CPU}
           memory: ${API_GATEWAY_LIMIT_MEMORY}
   app:
-    image: ${API_APP_IMAGE}
+    image: ${IMAGE}
     secrets:
     - $API_ROOT_PASSWORD_SECRET
     - $DATABASE_PASSWORD_SECRET

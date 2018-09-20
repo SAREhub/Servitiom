@@ -18,35 +18,12 @@
  *
  */
 
-use Doctrine\DBAL\Platforms\MySQL57Platform;
-use Doctrine\ORM\Configuration;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Tools\Console\ConsoleRunner;
+
 use SAREhub\Commons\Misc\ErrorHandlerHelper;
+use SAREhub\Servitiom\Util\Database\DoctrineCliBootstrap;
 
 require __DIR__ . '/vendor/autoload.php';
 
-ErrorHandlerHelper::enableErrorReporting(E_ALL);
+ErrorHandlerHelper::registerDefaultErrorHandler();
 
-$cache = new \Doctrine\Common\Cache\ApcuCache();
-$config = new Configuration;
-$config->setMetadataCacheImpl($cache);
-$driverImpl = $config->newDefaultAnnotationDriver("src/SAREhub/Servitiom/Entity");
-$config->setMetadataDriverImpl($driverImpl);
-$config->setQueryCacheImpl($cache);
-$config->setProxyDir("Proxies");
-$config->setProxyNamespace('SAREhub\\Servitiom\\Proxy');
-$config->setAutoGenerateProxyClasses(false);
-
-$connectionOptions = array(
-    'platform' => new MySQL57Platform(),
-    'driver' => "pdo_mysql"
-);
-
-$entityManager = EntityManager::create($connectionOptions, $config);
-
-$helperSet = ConsoleRunner::createHelperSet($entityManager);
-
-$cli = ConsoleRunner::createApplication($helperSet);
-
-$cli->run();
+DoctrineCliBootstrap::run();

@@ -23,7 +23,7 @@ namespace SAREhub\Servitiom\Api;
 use DI\ContainerBuilder;
 use SAREhub\Microt\App\ContainerConfigurator;
 use SAREhub\Servitiom\Api\Routes\ServiceRoutesDefinitions;
-use SAREhub\Servitiom\Util\Database\DatabaseDefinitions;
+use SAREhub\Servitiom\Util\Database\EntityManagerDefinitions;
 use SAREhub\Servitiom\Util\UtilDefinitions;
 
 
@@ -39,6 +39,6 @@ class ApiContainerConfigurator implements ContainerConfigurator
     {
         $builder->addDefinitions(ServiceRoutesDefinitions::get());
         $builder->addDefinitions(UtilDefinitions::get());
-        $builder->addDefinitions(DatabaseDefinitions::get());
+        $builder->addDefinitions(EntityManagerDefinitions::get());
     }
 }
