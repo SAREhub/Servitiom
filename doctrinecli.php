@@ -19,11 +19,8 @@
  */
 
 
-use SAREhub\Commons\Misc\ErrorHandlerHelper;
 use SAREhub\Servitiom\Util\Database\DoctrineCliBootstrap;
 
 require __DIR__ . '/vendor/autoload.php';
-
-ErrorHandlerHelper::registerDefaultErrorHandler();
 
 DoctrineCliBootstrap::run();

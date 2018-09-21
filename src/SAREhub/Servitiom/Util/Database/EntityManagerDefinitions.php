@@ -20,13 +20,11 @@
 
 namespace SAREhub\Servitiom\Util\Database;
 
-use Doctrine\Common\Cache\ApcuCache;
 use Doctrine\ORM\Configuration;
 use SAREhub\MicroORM\Entity\EntityManager;
 use function DI\autowire;
 use function DI\create;
 use function DI\factory;
-use function DI\get;
 
 
 class EntityManagerDefinitions
@@ -36,7 +34,7 @@ class EntityManagerDefinitions
     public static function get(): array
     {
         return [
-            CacheConfiguration::class => create()->constructor(get(ApcuCache::class)),
+            CacheConfiguration::class => factory(EnvCacheConfigurationProvider::class),
             ProxyConfiguration::class => create()->constructor("SAREhub\\Servitiom\\Proxy", false),
             ConfigurationProvider::class => autowire()
                 ->constructorParameter("entitiesPaths", ["src/SAREhub/Servitiom/Entity"]),

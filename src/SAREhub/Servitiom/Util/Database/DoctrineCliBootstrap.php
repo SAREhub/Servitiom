@@ -13,6 +13,7 @@ use SAREhub\Commons\Logger\EnvLoggingLevelProvider;
 use SAREhub\Commons\Logger\StreamLoggerFactoryProvider;
 use SAREhub\MicroORM\Connection\ConnectionOptions;
 use SAREhub\MicroORM\Entity\EntityManager;
+use SAREhub\Servitiom\Util\ErrorHandling;
 
 class DoctrineCliBootstrap
 {
@@ -20,6 +21,7 @@ class DoctrineCliBootstrap
     {
         $logger = self::createLogger();
         try {
+            ErrorHandling::setup();
             $container = self::buildContainer();
             $helperSet = ConsoleRunner::createHelperSet($container->get(EntityManager::class));
             ConsoleRunner::createApplication($helperSet)->run();
@@ -36,6 +38,10 @@ class DoctrineCliBootstrap
         return $factory->create("DoctrineCliBootstrap");
     }
 
+    /**
+     * @return ContainerInterface
+     * @throws \Exception
+     */
     private static function buildContainer(): ContainerInterface
     {
         $containerBuilder = new ContainerBuilder();
