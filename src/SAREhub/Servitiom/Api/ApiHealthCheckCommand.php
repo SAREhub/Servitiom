@@ -7,25 +7,22 @@
 
 namespace SAREhub\Servitiom\Api;
 
-use SAREhub\MicroODM\Client\DatabasePingChecker;
+use SAREhub\MicroORM\Connection\ConnectionPingChecker;
 use SAREhub\Microt\HealthCheck\HealthCheckCommand;
 use SAREhub\Microt\HealthCheck\HealthCheckResult;
 
 class ApiHealthCheckCommand implements HealthCheckCommand
 {
-    /**
-     * @var DatabasePingChecker
-     */
     private $databasePingChecker;
 
-    public function __construct(DatabasePingChecker $databasePingChecker)
+    public function __construct(ConnectionPingChecker $databasePingChecker)
     {
         $this->databasePingChecker = $databasePingChecker;
     }
 
     public function perform(): HealthCheckResult
     {
-        if (!$this->databasePingChecker->execute()) {
+        if (!$this->databasePingChecker->check()) {
             return HealthCheckResult::createWarn([
                 "database" => "ping fail"
             ]);

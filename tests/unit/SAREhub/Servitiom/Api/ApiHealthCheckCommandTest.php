@@ -8,9 +8,9 @@
 namespace SAREhub\Servitiom\Api;
 
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use Mockery\Mock;
+use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
-use SAREhub\MicroODM\Client\DatabasePingChecker;
+use SAREhub\MicroORM\Connection\ConnectionPingChecker;
 use SAREhub\Microt\HealthCheck\HealthCheckResult;
 
 class ApiHealthCheckCommandTest extends TestCase
@@ -18,7 +18,7 @@ class ApiHealthCheckCommandTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     /**
-     * @var DatabasePingChecker | Mock
+     * @var ConnectionPingChecker | MockInterface
      */
     private $databasePingChecker;
 
@@ -29,20 +29,20 @@ class ApiHealthCheckCommandTest extends TestCase
 
     protected function setUp()
     {
-        $this->databasePingChecker = \Mockery::mock(DatabasePingChecker::class);
+        $this->databasePingChecker = \Mockery::mock(ConnectionPingChecker::class);
         $this->command = new ApiHealthCheckCommand($this->databasePingChecker);
     }
 
     public function testPerformWhenDatabasePingCheckOk()
     {
-        $this->databasePingChecker->expects("execute")->andReturn(true);
+        $this->databasePingChecker->expects("check")->andReturn(true);
         $result = $this->command->perform();
         $this->assertEquals($result->getStatus(), HealthCheckResult::PASS_STATUS);
     }
 
     public function testPerformWhenDatabasePingCheckNotOk()
     {
-        $this->databasePingChecker->expects("execute")->andReturn(false);
+        $this->databasePingChecker->expects("check")->andReturn(false);
         $result = $this->command->perform();
         $this->assertEquals($result->getStatus(), HealthCheckResult::WARN_STATUS);
     }
