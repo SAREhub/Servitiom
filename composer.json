@@ -31,7 +31,8 @@
     "doctrine/orm": "2.6.*",
     "respect/validation": "^1.1",
     "tuupola/slim-basic-auth": "^2.2",
-    "php-di/php-di": "^6.0"
+    "php-di/php-di": "^6.0",
+    "acelaya/doctrine-enum-type": "^2.2"
 
   },
   "autoload": {

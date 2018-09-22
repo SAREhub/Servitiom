@@ -7,22 +7,20 @@
 
 namespace SAREhub\Servitiom\Entity\Service;
 
-
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
-use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\Table;
-use SAREhub\Servitiom\Entity\Tenant\Tenant;
+use SAREhub\Servitiom\Entity\VersioningSystemType;
 
 /**
  * @Entity
- * @Table(name="service_instances")
+ * @Table(name="service_versions")
  **/
-class ServiceInstance
+class ServiceVersion
 {
     /**
      * @Id
@@ -33,13 +31,6 @@ class ServiceInstance
     private $id;
 
     /**
-     * @OneToOne(targetEntity="\SAREhub\Servitiom\Entity\Tenant\Tenant")
-     * @JoinColumn(onDelete="CASCADE")
-     * @var Tenant
-     */
-    private $tenant;
-
-    /**
      * @ManyToOne(targetEntity="Service")
      * @JoinColumn(onDelete="CASCADE")
      * @var Service
@@ -47,11 +38,16 @@ class ServiceInstance
     private $service;
 
     /**
-     * @ManyToOne(targetEntity="ServiceVersion")
-     * @JoinColumn(onDelete="CASCADE")
-     * @var Service
+     * @Column(type="VersioningSystemType::class")
+     * @var VersioningSystemType
      */
-    private $serviceVersion;
+    private $versioningSystemType;
+
+    /**
+     * @Column(type="string", length=255)
+     * @var string
+     */
+    private $value;
 
     /**
      * @Column(type="integer", options={"unsigned": true})
@@ -64,20 +60,9 @@ class ServiceInstance
         return $this->id;
     }
 
-    public function setId(int $id): ServiceInstance
+    public function setId(int $id): ServiceVersion
     {
         $this->id = $id;
-        return $this;
-    }
-
-    public function getTenant(): Tenant
-    {
-        return $this->tenant;
-    }
-
-    public function setTenant(Tenant $tenant): ServiceInstance
-    {
-        $this->tenant = $tenant;
         return $this;
     }
 
@@ -86,20 +71,31 @@ class ServiceInstance
         return $this->service;
     }
 
-    public function setService(Service $service): ServiceInstance
+    public function setService(Service $service): ServiceVersion
     {
         $this->service = $service;
         return $this;
     }
 
-    public function getServiceVersion(): Service
+    public function getVersioningSystemType(): VersioningSystemType
     {
-        return $this->serviceVersion;
+        return $this->versioningSystemType;
     }
 
-    public function setServiceVersion(Service $serviceVersion): ServiceInstance
+    public function setVersioningSystemType(VersioningSystemType $versioningSystemType): ServiceVersion
     {
-        $this->serviceVersion = $serviceVersion;
+        $this->versioningSystemType = $versioningSystemType;
+        return $this;
+    }
+
+    public function getValue(): string
+    {
+        return $this->value;
+    }
+
+    public function setValue(string $value): ServiceVersion
+    {
+        $this->value = $value;
         return $this;
     }
 
@@ -108,9 +104,10 @@ class ServiceInstance
         return $this->createdAt;
     }
 
-    public function setCreatedAt(int $createdAt): ServiceInstance
+    public function setCreatedAt(int $createdAt): ServiceVersion
     {
         $this->createdAt = $createdAt;
         return $this;
     }
+
 }
