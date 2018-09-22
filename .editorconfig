@@ -12,6 +12,7 @@ indent_size = 2
 
 [*.sh]
 insert_final_newline = false
+indent_style = tab
 
 [Makefile]
 indent_style = tab

@@ -12,4 +12,4 @@ docker service create \
     "${GEARMAND_SERVICE_IMAGE}" \
     &>/dev/null
 
-dockerutil::print_success "created service: ${DATABASE_SERVICE}"
+dockerutil::print_success "created service: ${GEARMAND_SERVICE}"
