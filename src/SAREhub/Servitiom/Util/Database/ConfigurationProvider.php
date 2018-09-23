@@ -20,14 +20,14 @@ class ConfigurationProvider extends InvokableProvider
     private $cacheConfig;
 
     /**
-     * @var array
-     */
-    private $entitiesPaths;
-
-    /**
      * @var ProxyConfiguration
      */
     private $proxyConfig;
+
+    /**
+     * @var array
+     */
+    private $entitiesPaths;
 
     public function __construct(CacheConfiguration $cacheConfig, ProxyConfiguration $proxyConfig, array $entitiesPaths)
     {
