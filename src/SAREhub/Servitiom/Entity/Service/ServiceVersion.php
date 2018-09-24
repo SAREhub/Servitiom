@@ -14,7 +14,6 @@ use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
-use SAREhub\Servitiom\Entity\VersioningSystemType;
 
 /**
  * @Entity
@@ -38,16 +37,10 @@ class ServiceVersion
     private $service;
 
     /**
-     * @Column(type="VersioningSystemType::class")
-     * @var VersioningSystemType
-     */
-    private $versioningSystemType;
-
-    /**
      * @Column(type="string", length=255)
      * @var string
      */
-    private $value;
+    private $versionString;
 
     /**
      * @Column(type="integer", options={"unsigned": true})
@@ -77,25 +70,14 @@ class ServiceVersion
         return $this;
     }
 
-    public function getVersioningSystemType(): VersioningSystemType
+    public function getVersionString(): string
     {
-        return $this->versioningSystemType;
+        return $this->versionString;
     }
 
-    public function setVersioningSystemType(VersioningSystemType $versioningSystemType): ServiceVersion
+    public function setVersionString(string $versionString): ServiceVersion
     {
-        $this->versioningSystemType = $versioningSystemType;
-        return $this;
-    }
-
-    public function getValue(): string
-    {
-        return $this->value;
-    }
-
-    public function setValue(string $value): ServiceVersion
-    {
-        $this->value = $value;
+        $this->versionString = $versionString;
         return $this;
     }
 
