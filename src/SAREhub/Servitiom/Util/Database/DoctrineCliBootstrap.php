@@ -15,9 +15,16 @@ use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use SAREhub\Commons\Logger\EnvLoggingLevelProvider;
 use SAREhub\Commons\Logger\StreamLoggerFactoryProvider;
+use SAREhub\Commons\Misc\EnvironmentHelper;
+use SAREhub\Commons\Secret\SecretValueProvider;
+use SAREhub\Commons\Secret\SimpleSecretValueProvider;
 use SAREhub\MicroORM\Connection\ConnectionOptions;
+use SAREhub\MicroORM\Connection\MySQLEnvConnectionOptionsProvider;
 use SAREhub\MicroORM\Entity\EntityManager;
+use SAREhub\Servitiom\Entity\EntityManagerDefinitions;
 use SAREhub\Servitiom\Util\ErrorHandling;
+use function DI\create;
+use function DI\factory;
 
 class DoctrineCliBootstrap
 {
@@ -26,7 +33,7 @@ class DoctrineCliBootstrap
         $logger = self::createLogger();
         try {
             ErrorHandling::setup();
-            $container = self::buildContainer();
+            $container = self::buildContainer($logger);
             $helperSet = ConsoleRunner::createHelperSet($container->get(EntityManager::class));
             ConsoleRunner::createApplication($helperSet)->run();
         } catch (\Throwable $e) {
@@ -46,21 +53,28 @@ class DoctrineCliBootstrap
      * @return ContainerInterface
      * @throws \Exception
      */
-    private static function buildContainer(): ContainerInterface
+    private static function buildContainer(LoggerInterface $logger): ContainerInterface
     {
         $containerBuilder = new ContainerBuilder();
         $containerBuilder->useAnnotations(true);
         $containerBuilder->useAutowiring(true);
-        $connectionOptions = new ConnectionOptions([
-            "driver" => "pdo_mysql",
-            "platform" => new MySQL57Platform()
-        ]);
+        if (EnvironmentHelper::getVar("DOCTRINE_CLI_USE_CONNECTION")) {
+            $logger->info("using real database");
+            $containerBuilder->addDefinitions([
+                ConnectionOptions::class => factory(MySQLEnvConnectionOptionsProvider::class),
+                SecretValueProvider::class => create(SimpleSecretValueProvider::class)
+            ]);
+        } else {
+            $containerBuilder->addDefinitions([
+                ConnectionOptions::class => new ConnectionOptions([
+                    "driver" => "pdo_mysql",
+                    "platform" => new MySQL57Platform()
+                ])
+            ]);
+        }
 
-        $containerBuilder->addDefinitions([
-            ConnectionOptions::class => $connectionOptions
-        ]);
-        $containerBuilder->addDefinitions(ConnectionDefinitions::get());
         $containerBuilder->addDefinitions(EntityManagerDefinitions::get());
+        $containerBuilder->addDefinitions(ConnectionDefinitions::get());
         return $containerBuilder->build();
     }
 }
