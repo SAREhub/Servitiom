@@ -10,7 +10,7 @@ namespace SAREhub\Servitiom\Api;
 use DI\ContainerBuilder;
 use SAREhub\Microt\App\ContainerConfigurator;
 use SAREhub\Servitiom\Api\Routes\ServiceRoutesDefinitions;
-use SAREhub\Servitiom\Util\Database\EntityManagerDefinitions;
+use SAREhub\Servitiom\Entity\EntityManagerDefinitions;
 use SAREhub\Servitiom\Util\UtilDefinitions;
 
 
