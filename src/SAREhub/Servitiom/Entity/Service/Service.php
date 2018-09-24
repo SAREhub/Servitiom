@@ -12,8 +12,9 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\Table;
-use SAREhub\Servitiom\Entity\Service\Instance\ServiceInstance;
 
 /**
  * @Entity
@@ -48,6 +49,12 @@ class Service
      */
     private $createdAt;
 
+    /**
+     * @OneToOne(targetEntity="ServiceVersion")
+     * @JoinColumn(nullable=true)
+     * @var ServiceVersion
+     */
+    private $defaultVersion;
 
     public function getId(): int
     {
@@ -87,5 +94,14 @@ class Service
         return $this;
     }
 
+    public function getDefaultVersion(): ServiceVersion
+    {
+        return $this->defaultVersion;
+    }
 
+    public function setDefaultVersion(ServiceVersion $defaultVersion): Service
+    {
+        $this->defaultVersion = $defaultVersion;
+        return $this;
+    }
 }
