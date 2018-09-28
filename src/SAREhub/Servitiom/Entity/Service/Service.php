@@ -31,13 +31,12 @@ class Service
     private $id;
 
     /**
-     * @Column(type="string", length=255)
+     * @Column(type="string", length=255, unique=true)
      * @var string
      */
     private $name;
 
     /**
-     *
      * @Column(type="string", length=512, options={"default":""})
      * @var string
      */

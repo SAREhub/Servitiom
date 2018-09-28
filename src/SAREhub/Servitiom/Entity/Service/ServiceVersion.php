@@ -14,10 +14,13 @@ use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * @Entity
- * @Table(name="service_versions")
+ * @Table(name="service_versions"
+ *        uniqueConstraints={@UniqueConstraint(name="unique_version",columns={"service", "versionString"})}
+ * )
  **/
 class ServiceVersion
 {

@@ -16,17 +16,20 @@ use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 use SAREhub\Servitiom\Entity\Tenant\Tenant;
 
 /**
  * @Entity
- * @Table(name="service_instances")
+ * @Table(name="service_instances",
+ *        uniqueConstraints={@UniqueConstraint(name="unique_instance",columns={"tenant", "service", "index"})}
+ * )
  **/
 class ServiceInstance
 {
     /**
      * @Id
-     * @Column(type="integer")
+     * @Column(type="integer", options={"unsigned": true})
      * @GeneratedValue
      * @var int
      */
@@ -40,18 +43,17 @@ class ServiceInstance
     private $tenant;
 
     /**
-     * @ManyToOne(targetEntity="Service")
-     * @JoinColumn(onDelete="CASCADE")
-     * @var Service
-     */
-    private $service;
-
-    /**
      * @ManyToOne(targetEntity="ServiceVersion")
-     * @JoinColumn(onDelete="CASCADE")
-     * @var Service
+     * @JoinColumn(onDelete="Restrict")
+     * @var ServiceVersion
      */
     private $serviceVersion;
+
+    /**
+     * @Column(type="smallint", options={"unsigned": true, "default": 0})
+     * @var int
+     */
+    private $index;
 
     /**
      * @Column(type="integer", options={"unsigned": true})
@@ -81,25 +83,25 @@ class ServiceInstance
         return $this;
     }
 
-    public function getService(): Service
-    {
-        return $this->service;
-    }
-
-    public function setService(Service $service): ServiceInstance
-    {
-        $this->service = $service;
-        return $this;
-    }
-
-    public function getServiceVersion(): Service
+    public function getServiceVersion(): ServiceVersion
     {
         return $this->serviceVersion;
     }
 
-    public function setServiceVersion(Service $serviceVersion): ServiceInstance
+    public function setServiceVersion(ServiceVersion $serviceVersion): ServiceInstance
     {
         $this->serviceVersion = $serviceVersion;
+        return $this;
+    }
+
+    public function getIndex(): int
+    {
+        return $this->index;
+    }
+
+    public function setIndex(int $index): ServiceInstance
+    {
+        $this->index = $index;
         return $this;
     }
 
