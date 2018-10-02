@@ -10,6 +10,7 @@ namespace SAREhub\Servitiom\Util\Database;
 use Doctrine\Common\Proxy\AbstractProxyFactory;
 use Doctrine\ORM\Configuration;
 use SAREhub\Commons\Misc\InvokableProvider;
+use SAREhub\Servitiom\Util\Database\Cache\CacheConfiguration;
 
 class ConfigurationProvider extends InvokableProvider
 {

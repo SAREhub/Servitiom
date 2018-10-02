@@ -5,7 +5,7 @@
  *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-namespace SAREhub\Servitiom\Util\Database;
+namespace SAREhub\Servitiom\Util\Database\Cache;
 
 
 use Doctrine\Common\Cache\Cache;
