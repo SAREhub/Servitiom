@@ -1,11 +1,12 @@
-export DOCKERUTIL_PATH = ./vendor/sarehub/dockerutil/bin/dockerutil
+export DOCKERUTIL_ROOT_PATH = ./vendor/sarehub/dockerutil/bin
+export DOCKERUTIL_PATH = $(DOCKERUTIL_ROOT_PATH)/dockerutil
 export PROJECT = servitiom
 
 INFO = Showing targets for selected ENVIRONMENT(default: test)
 EXTRA_MAKE_ARGS = ENVIRONMENT=test|prod
 HELP_TARGET_MAX_CHAR_NUM=30
 SUBPROJECTS = api
-include bin/Help
+include $(DOCKERUTIL_ROOT_PATH)/MakeHelp
 
 export ENVIRONMENT ?= test
 ifeq "$(ENVIRONMENT)" "test"
