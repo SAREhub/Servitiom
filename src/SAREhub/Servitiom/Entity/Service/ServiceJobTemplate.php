@@ -11,7 +11,7 @@
  *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-namespace SAREhub\Servitiom\Entity\Service\Job;
+namespace SAREhub\Servitiom\Entity\Service;
 
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
@@ -21,11 +21,10 @@ use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\UniqueConstraint;
-use SAREhub\Servitiom\Entity\Service\ServiceVersion;
 
 /**
  * @Entity
- * @Table(name="service_job_definitions"
+ * @Table(name="service_job_definitions",
  *        uniqueConstraints={@UniqueConstraint(name="unique_job_template",columns={"name", "scopeType", "serviceVersion"})}
  * )
  **/

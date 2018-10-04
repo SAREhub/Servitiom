@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * @Entity
- * @Table(name="service_versions"
+ * @Table(name="service_versions",
  *        uniqueConstraints={@UniqueConstraint(name="unique_version",columns={"service", "versionString"})}
  * )
  **/
