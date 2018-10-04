@@ -24,7 +24,7 @@ class Service
 {
     /**
      * @Id
-     * @Column(type="integer")
+     * @Column(type="integer", options={"unsigned": true})
      * @GeneratedValue
      * @var int
      */
