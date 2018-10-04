@@ -20,7 +20,7 @@ class Tenant
 {
     /**
      * @Id
-     * @Column(type="integer")
+     * @Column(type="integer", options={"unsigned": true})
      * @var int
      */
     private $id;
@@ -30,6 +30,13 @@ class Tenant
      * @var string
      */
     private $name;
+
+    /**
+     * @Column(type="integer", options={"unsigned": true})
+     * @var int
+     */
+    private $createdAt;
+
 
     public function getId(): int
     {
@@ -53,4 +60,14 @@ class Tenant
         return $this;
     }
 
+    public function getCreatedAt(): int
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(int $createdAt): Tenant
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
 }
