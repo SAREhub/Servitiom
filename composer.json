@@ -3,14 +3,14 @@
   "description": "generic microservices manager",
   "keywords": [
     "docker",
-    "api",
-    "microservice"
+    "microservice",
+    "manager"
   ],
   "minimum-stability": "dev",
   "prefer-stable": true,
   "type": "project",
   "readme": "./README.md",
-  "license": "Apache-2.0",
+  "license": "MPL-2.0",
   "authors": [
     {
       "name": "Andrzej Wasiak",
