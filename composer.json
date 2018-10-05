@@ -32,7 +32,8 @@
     "respect/validation": "^1.1",
     "tuupola/slim-basic-auth": "^2.2",
     "php-di/php-di": "^6.0",
-    "acelaya/doctrine-enum-type": "^2.2"
+    "acelaya/doctrine-enum-type": "^2.2",
+    "xobotyi/beansclient": "^1.0"
 
   },
   "autoload": {

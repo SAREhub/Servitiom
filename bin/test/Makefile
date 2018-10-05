@@ -6,7 +6,7 @@ test_init_local_registry:
 	docker run -d -p 5000:5000 --restart=always --name registry registry:2
 
 ## Cleans test env and inits all depending services like database
-test_init: test_clean test_init_base test_init_database test_init_database_admin test_init_gearmand
+test_init: test_clean test_init_base test_init_database test_init_database_admin test_init_beanstalkd
 
 ## Creates test secrets and network
 test_init_base:
@@ -20,9 +20,9 @@ test_init_database:
 test_init_database_admin:
 	bash ${BIN_SCRIPTS_PATH}/database/deploy_admin.sh
 
-## Creates test gearmand service
-test_init_gearmand:
-	bash ${BIN_SCRIPTS_PATH}/gearmand/deploy.sh
+## Creates test beanstalkd service
+test_init_beanstalkd:
+	bash ${BIN_SCRIPTS_PATH}/beanstalkd/deploy.sh
 
 ## Cleans test env
 test_clean:
