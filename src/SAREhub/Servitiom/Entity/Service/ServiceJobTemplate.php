@@ -43,6 +43,11 @@ class ServiceJobTemplate
      * @var string
      */
     private $name;
+
+    /**
+     * @Column(type=ServiceJobScopeType::class, length=255)
+     * @var ServiceJobScopeType
+     */
     private $scopeType;
 
     /**
