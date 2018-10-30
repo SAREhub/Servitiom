@@ -9,7 +9,7 @@ namespace SAREhub\Servitiom\Api;
 
 use DI\ContainerBuilder;
 use SAREhub\Microt\App\ContainerConfigurator;
-use SAREhub\Servitiom\Api\Routes\ServiceRoutesDefinitions;
+use SAREhub\Servitiom\Api\Routes\RoutesDefinitions;
 use SAREhub\Servitiom\Entity\EntityManagerDefinitions;
 use SAREhub\Servitiom\Util\UtilDefinitions;
 
@@ -18,14 +18,10 @@ class ApiContainerConfigurator implements ContainerConfigurator
 {
     public function configure(ContainerBuilder $builder)
     {
-        $builder->addDefinitions(ApiDefinitions::get());
-        $this->configureRoutes($builder);
-    }
-
-    private function configureRoutes(ContainerBuilder $builder)
-    {
-        $builder->addDefinitions(ServiceRoutesDefinitions::get());
         $builder->addDefinitions(UtilDefinitions::get());
         $builder->addDefinitions(EntityManagerDefinitions::get());
+        $builder->addDefinitions(ApiDefinitions::get());
+        $builder->addDefinitions(RoutesDefinitions::get());
     }
+
 }

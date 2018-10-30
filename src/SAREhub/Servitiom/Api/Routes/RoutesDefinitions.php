@@ -16,7 +16,7 @@ use function DI\create;
 use function DI\factory;
 use function DI\get;
 
-class ServiceRoutesDefinitions
+class RoutesDefinitions
 {
     const SERVICE_BASE_URI = Api::VERSION_URI . "/service";
 
@@ -28,6 +28,9 @@ class ServiceRoutesDefinitions
 
             Api::ENTRY_MIDDLEWARES => add([
                 factory(HealthCheckRoutesProvider::class),
+                factory(TenantsRoutesProvider::class),
+                factory(ServicesRoutesProvider::class),
+                factory(ServiceInstancesRoutesProvider::class)
             ])
         ];
     }

@@ -41,4 +41,15 @@ class Api
     {
         return new AppMiddlewaresInjector(self::ENTRY_MIDDLEWARES);
     }
+
+    public static function uriPattern(...$subPatterns)
+    {
+        return implode('/', $subPatterns);
+    }
+
+    public static function uriAttribute(string $name): string
+    {
+        return '{' . $name . '}';
+    }
+
 }

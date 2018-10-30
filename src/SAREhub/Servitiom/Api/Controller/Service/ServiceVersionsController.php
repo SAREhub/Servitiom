@@ -1,11 +1,11 @@
 <?php
 /**
  * This Source Code Form is subject to the terms of the Mozilla Public
- *  License, v. 2.0. If a copy of the MPL was not distributed with this
- *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-namespace SAREhub\Servitiom\Api\Controller\Tenant;
+namespace SAREhub\Servitiom\Api\Controller\Service;
 
 
 use SAREhub\Microt\App\Controller\Controller;
@@ -13,7 +13,7 @@ use SAREhub\Microt\Util\JsonResponse;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class TenantsController implements Controller
+class ServiceVersionsController implements Controller
 {
     public function createAction(Request $request, Response $response): Response
     {
