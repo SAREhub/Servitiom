@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-namespace SAREhub\Servitiom\Job\Manager;
+namespace SAREhub\Servitiom\JobWorker;
 
 
 use DI\ContainerBuilder;
@@ -17,7 +17,7 @@ use SAREhub\Servitiom\Util\Database\ConnectionDefinitions;
 use SAREhub\Servitiom\Util\ServiceWorkerDefinitions;
 use SAREhub\Servitiom\Util\UtilDefinitions;
 
-class JobManagerContainerFactory implements ContainerFactory
+class JobWorkerContainerFactory implements ContainerFactory
 {
     /**
      * @return ContainerInterface
