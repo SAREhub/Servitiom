@@ -5,7 +5,7 @@
  *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-namespace SAREhub\Servitiom\Entity\Service;
+namespace SAREhub\Servitiom\Entity\Service\Job;
 
 
 use MyCLabs\Enum\Enum;

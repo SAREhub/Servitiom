@@ -21,8 +21,9 @@ use SAREhub\Servitiom\Entity\Tenant\Tenant;
 
 /**
  * @Entity
- * @Table(name="service_instances",
- *        uniqueConstraints={@UniqueConstraint(name="unique_instance",columns={"tenant", "service", "index"})}
+ * @Table(
+ *     name="service_instances",
+ *     uniqueConstraints={@UniqueConstraint(name="unique_instance",columns={"tenant", "index", "serviceVersion"})}
  * )
  **/
 class ServiceInstance
@@ -43,6 +44,12 @@ class ServiceInstance
     private $tenant;
 
     /**
+     * @Column(type="smallint", options={"unsigned": true, "default": 0})
+     * @var int
+     */
+    private $index;
+
+    /**
      * @ManyToOne(targetEntity="ServiceVersion")
      * @JoinColumn(onDelete="Restrict")
      * @var ServiceVersion
@@ -50,10 +57,10 @@ class ServiceInstance
     private $serviceVersion;
 
     /**
-     * @Column(type="smallint", options={"unsigned": true, "default": 0})
-     * @var int
+     * @Column(type="json", length=65535)
+     * @var array
      */
-    private $index;
+    private $customParameters;
 
     /**
      * @Column(type="integer", options={"unsigned": true})
@@ -102,6 +109,17 @@ class ServiceInstance
     public function setIndex(int $index): ServiceInstance
     {
         $this->index = $index;
+        return $this;
+    }
+
+    public function getCustomParameters(): array
+    {
+        return $this->customParameters;
+    }
+
+    public function setCustomParameters(array $customParameters): ServiceInstance
+    {
+        $this->customParameters = $customParameters;
         return $this;
     }
 
