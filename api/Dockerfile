@@ -1,8 +1,8 @@
 FROM composer:1.7.2 AS composer_install
 WORKDIR /app
 COPY composer.json .
-RUN composer global require hirak/prestissimo && \
-    composer install --no-dev --optimize-autoloader --prefer-dist --no-suggest --ignore-platform-reqs
+RUN composer global require hirak/prestissimo
+RUN composer install --no-dev --optimize-autoloader --prefer-dist --no-suggest --ignore-platform-reqs
 
 FROM php:7.1-fpm-alpine
 ENV APP_LOGGING_STREAM="/tmp/stdout"
